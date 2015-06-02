@@ -1,0 +1,7 @@
+c:\users\razer\documents\visual studio 2013\Projects\MergeExcel\MergeExcel\bin\Debug\MergeExcel.exe.config
+c:\users\razer\documents\visual studio 2013\Projects\MergeExcel\MergeExcel\bin\Debug\MergeExcel.exe
+c:\users\razer\documents\visual studio 2013\Projects\MergeExcel\MergeExcel\bin\Debug\MergeExcel.pdb
+c:\users\razer\documents\visual studio 2013\Projects\MergeExcel\MergeExcel\obj\Debug\MergeExcel.csprojResolveAssemblyReference.cache
+c:\users\razer\documents\visual studio 2013\Projects\MergeExcel\MergeExcel\obj\Debug\MergeExcel.csproj.ResolveComReference.cache
+c:\users\razer\documents\visual studio 2013\Projects\MergeExcel\MergeExcel\obj\Debug\MergeExcel.exe
+c:\users\razer\documents\visual studio 2013\Projects\MergeExcel\MergeExcel\obj\Debug\MergeExcel.pdb
