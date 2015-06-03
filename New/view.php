@@ -1,36 +1,87 @@
 <?php
+	$html = '<html>';
 	$handle = file("text.txt");
 	$conn = mysql_connect("localhost"); 
 	mysql_select_db("user_login",$conn);
-	$table = 'users';
-	$result = mysql_query("SELECT * FROM {$table} ORDER BY group_id");
+	$table = 'users';	
+	$result = mysql_query("SELECT * FROM $table ORDER BY group_id");
 	if (!$result) {
 		die("Query to show fields from table failed");
 	}
-
+	
 	$fields_num = mysql_num_fields($result);
-
-	echo "<h1>Table: {$table}</h1>";
-	echo "<table border='1'><tr>";
-	// printing table headers
+	
+	$html .= '<h1>Table:'.$table.'</h1> 
+	
+			  <table border="1">
+			  <tr>';
+	
 	for($i=0; $i<$fields_num; $i++)
 	{
 		$field = mysql_fetch_field($result);
-		echo "<th>{$field->name}</th>";
+		$html.='<th>'.$field->name.'</th>';
 	}
-	echo "</tr>\n";
+		$html.= '</tr>';
 	// printing table rows
-	while($row = mysql_fetch_row($result))
+	
+	$last_id = '';
+	$div_name_html = '';
+	$user_name_html = '';
+	$pass_html = '';
+	$file_html = '';
+	
+	while($row = mysql_fetch_assoc($result))
 	{
-		echo "<tr>";
+		if($row["group_id"]==$last_id)
+		{
+			
+			$div_name_html .= '<br>'.$row["division_name"];
+			$user_name_html .= '<br>'.$row["user_name"];
+			$pass_html .= '<br>'.$row["password"];
+			$file_html .= '<br>'.$row["filename"];
 
-		// $row is array... foreach( .. ) puts every element
-		// of $row to $cell variable
-		foreach($row as $cell)
-			echo "<td>$cell</td>";
-
-		echo "</tr>\n";
+		}
+		else
+		{
+			$div_name_html .= '</td>';
+			$user_name_html .= '</td>';
+			$pass_html .= '</td>';
+			$file_html .= '</td>';
+			$html.= $div_name_html.
+					$user_name_html.
+					$pass_html. 
+					$file_html.
+					'
+					</tr>
+					<tr>
+			
+					<td>'.$row["group_id"].'</td>
+					<td>'.$row["group_name"].'</td>
+					
+					';
+			$div_name_html = '<td>'.$row["division_name"];
+			$user_name_html = '<td>'.$row["user_name"];
+			$pass_html = '<td>'.$row["password"];
+			$file_html = '<td>'.$row["filename"];	
+		}
+		
+		$last_id=$row["group_id"];
+		
 	}
+	$div_name_html .= '</td>';
+	$user_name_html .= '</td>';
+	$pass_html .= '</td>';
+	$file_html .= '</td>';
+	$html.= $div_name_html.
+			$user_name_html.
+			$pass_html. 
+			$file_html.
+			'</tr>';
+	$html.= '</table>
+			 </html>';
+			 
+	echo $html;
+	
 	mysql_free_result($result);
 	
 ?>
