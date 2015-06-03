@@ -4,7 +4,8 @@
     </head>
 	
 	
-   <?php
+<?php
+
    session_start(); //starts the session
    if($_SESSION['user']){ // checks if the user is logged in  
    }
@@ -19,51 +20,23 @@
    echo "<br/>";
    if($user == 'admin'){ 
    echo ' admin logged in';
-   
-   exec("C:/xampp/htdocs/New/text.bat");
-print <<< HERE
-  <table border = "1">
-  <tr>
-   <th>Id</th>
-   
-   <th>Group</th>
-   <th>Division</th>
-   <th>Username</th>
-   <th>File-Link</th>
-   </tr>
+	print <<< HERE
+	
+	<body>
+        <h2 align='center'>Welcome to Integrator</h2>		
+		<br/>	
+		<br/>
+		<br/>
+		</form> 		
+		</body>
+	<button onclick="location.href = 'update.php';"">Update</button>
+	<button onclick="location.href = 'view.php';"">View</button>
 HERE;
-  $data = file("text.txt");
-  natsort($data);
-  
-  foreach ($data as $line){
-  $lineArray = explode(",", $line);
-  list($Id, $Group, $Division, $Username, $File) = $lineArray;
-  print <<< HERE
-   <tr>
-   <td>$Id</td>
-   
-   <td>$Group</td>
-   <td>$Division</td>
-   <td>$Username</td>
-   <td>$File</td>
-   </tr>
-HERE;
-  } 
- print "</table> \n";
-   
-   }
-   
-   ?>
-   <style>
-body  {background-color: #b0c4de;}
-{text-align: center;}
-
-
-</style>
-
-   
-   
-    <body>
+	}
+	else 
+		{
+		print <<< HERE
+		<body>
         <h2 align='center'>Welcome to Integrator</h2>
         
 		
@@ -72,7 +45,7 @@ body  {background-color: #b0c4de;}
 
 		Select  Microsoft Excel  File To Upload : 
 	
-		<input type="file" name="fileToUpload" id="fileToUpload" accept=".xlsx" accept=".xls">
+		<input type="file" name="fileToUpload" id="fileToUpload" accept=".xls">
 		<input type="submit" value="Upload File" name="submit">
 	
 		<br/>
@@ -82,6 +55,28 @@ body  {background-color: #b0c4de;}
 		<button onclick="location.href = 'logout.php';"">Logout</button>        
 		
 		
-	</body>
+		</body>
+HERE;
+			/*$handle = @fopen("text.txt", "r");
+			$conn = mysql_connect("localhost"); 
+			mysql_select_db("user_login",$conn);
+			$sql = "SELECT filename FROM `users` WHERE user_name = '$user'";
+			$sql2 = "SELECT group_name FROM `users` WHERE user_name = '$user'";
+			$FILE = mysql_query($sql,$conn) or die(mysql_error());
+			$GRP = mysql_query($sql2,$conn) or die(mysql_error());
+			*/
+		}	
+?>
+<style>
+body  {background-color: #b0c4de;}
+{text-align: center;}
+
+
+</style>
+<button onclick="location.href = 'logout.php';"">Logout</button>
+
+   
+   
+    
 	
 </html>

@@ -12,16 +12,6 @@ q {text-align: center;}
 <table width="300" border="1" align="center" cellpadding="0" cellspacing="1" bgcolor="#CCCCCC">
 <tr>
 <form action="check_login.php" method="post">
-<script type="text/javascript">
-        function noBack()
-         {
-             window.history.forward()
-         }
-        noBack();
-        window.onload = noBack;
-        window.onpageshow = function(evt) { if (evt.persisted) noBack() }
-        window.onunload = function() { void (0) }
-    </script>
 
 <td>
 <table width="100%" border="0" cellpadding="3" cellspacing="1" bgcolor="#FFFFFF">

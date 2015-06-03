@@ -1,15 +1,30 @@
 <?php
-$target_dir = "uploads/Input/";
-$target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
+session_start();
+$user = $_SESSION['user'];
+echo $user;
+$conn = mysql_connect("localhost"); 
+mysql_select_db("user_login",$conn);
+//$sql = "SELECT filename FROM `users` WHERE user_name = '$user'";
+$sql2 = "SELECT group_name FROM `users` WHERE user_name = '$user'";
+//$file_query = mysql_query($sql,$conn) or die(mysql_error());
+$grp_query = mysql_query($sql2,$conn) or die(mysql_error());
+//$file = mysql_fetch_assoc($file_query);
+$grp = mysql_fetch_assoc($grp_query);
+//$FILE = $file['filename'];
+$GRP = $grp['group_name'];
+//echo $FILE;
+echo $GRP;
+
+
+$target_file = "uploads/Input/$GRP/".basename($_FILES["fileToUpload"]["name"]);
 $uploadOk = 1;
-$FileType = pathinfo($target_file,PATHINFO_EXTENSION);
+//$FileType = pathinfo($target_file,PATHINFO_EXTENSION);
 if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
-        echo "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";
+        echo "<br>The file ".basename($_FILES["fileToUpload"]["name"]). " has been uploaded.";
     } else {
         echo "Sorry, there was an error uploading your file.";
-    }
-	
-#exec("C:/xampp/htdocs/smit/call.bat");x
+    }	
+#exec("C:/xampp/htdocs/smit/call.bat");
 
 ?>
 <html>
@@ -42,18 +57,30 @@ try {
 	die('Error loading file "'.pathinfo($inputFileName,PATHINFO_BASENAME).'": '.$e->getMessage());
 }
 $i=0;
-switch($_FILES["fileToUpload"]["name"])
+switch(basename($_FILES["fileToUpload"]["name"]))
 {
-	case 'Kanpur Accts 2013-14.xls':
+	case "file1.xls":
 		echo 'Here Is View Of Your Uploaded File';
 		$i=2;
 		break;
-	case 'Korwa Accts 2013-14.xls':
+	case 'file3.xls':
 		echo 'Here Is View Of Your Uploaded File';
 		$i=5;
 		break;
+	case 'file2.xls':
+		echo 'Here Is View Of Your Uploaded File';
+		$i=8;
+		break;
+	case 'file5.xls':
+		echo 'Here Is View Of Your Uploaded File';
+		$i=11;
+		break;
+	case 'file4.xls':
+		echo 'Here Is View Of Your Uploaded File';
+		$i=14;
+		break;
 	default:
-		$i=0;
+		$i=200;
 		break;
 }
 

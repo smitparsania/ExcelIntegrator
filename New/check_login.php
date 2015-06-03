@@ -7,7 +7,7 @@
 
     mysql_connect("localhost", "root", "") or die (mysql_error()); //Connect to server
     mysql_select_db("user_login") or die ("Cannot connect to database"); //Connect to database
-    $query = mysql_query("Select * from users WHERE division='$division'"); // Query the users table
+    $query = mysql_query("Select * from users WHERE division_name='$division'"); // Query the users table
     $exists = mysql_num_rows($query); //Checks if username exists
     $table_users = "";
     $table_password = "";
@@ -15,7 +15,7 @@
     {
        while($row = mysql_fetch_assoc($query)) // display all rows from query
        {
-          $table_users = $row['username']; // the first username row is passed on to $table_users, and so on until the query is finished
+          $table_users = $row['user_name']; // the first username row is passed on to $table_users, and so on until the query is finished
           $table_password = $row['password']; // the first password row is passed on to $table_password, and so on until the query is finished
        }
        if(($username == $table_users) && ($password == $table_password))// checks if there are any matching fields
@@ -23,7 +23,7 @@
           if($password == $table_password)
           {
              $_SESSION['user'] = $username; //set the username in a session. This serves as a global variable
-             header("Location: home.php"); // redirects the user to the authenticated home page
+			 header("Location: home.php"); // redirects the user to the authenticated home page
           }
        }
        else
