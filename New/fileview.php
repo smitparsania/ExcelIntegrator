@@ -1,66 +1,4 @@
 <?php
-//ini_set('display_errors',0);
-session_start();
-$user = $_SESSION['user'];
-echo $user;
-$conn = mysql_connect("localhost"); 
-mysql_select_db("user_login",$conn);
-//$sql = "SELECT filename FROM `users` WHERE user_name = '$user'";
-$sql2 = "SELECT group_name FROM `users` WHERE user_name = '$user'";
-//$file_query = mysql_query($sql,$conn) or die(mysql_error());
-$grp_query = mysql_query($sql2,$conn) or die(mysql_error());
-//$file = mysql_fetch_assoc($file_query);
-$grp = mysql_fetch_assoc($grp_query);
-//$FILE = $file['filename'];
-$GRP = $grp['group_name'];
-//echo $FILE;
-echo $GRP;
-
-$target_dir = "uploads/Input/$GRP/";
-if(!file_exists($target_dir))
-	{echo "done";
-	mkdir("uploads/Input/$GRP/");	}
-$target_file = $target_dir.basename($_FILES["fileToUpload"]["name"]);
-$uploadOk = 1;
-//$FileType = pathinfo($target_file,PATHINFO_EXTENSION);
-if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
-        echo "<br>The file ".basename($_FILES["fileToUpload"]["name"]). " has been uploaded.";
-    } else {
-        echo "Sorry, there was an error uploading your file.";
-    }	
-#exec("C:/xampp/htdocs/smit/call.bat");
-
-?>
-
-<html>
-<style>
-<body>  {background-color: #b0c4de;}
-
-
-
-</style>
-
-	<br/>
-	<br>
-	<button onclick="location.href = 'home.php';">Upload another File</button>
-	<button onclick="location.href = 'logout.php';">Logout</button>	<br>
-	<br/>
-	
-
-<script type="text/javascript">
-        function noBack()
-         {
-             window.history.forward()
-         }
-        noBack();
-        window.onload = noBack;
-        window.onpageshow = function(evt) { if (evt.persisted) noBack() }
-        window.onunload = function() { void (0) }
-    </script>
-</body>
-</html>
-
-<?php
 /** Include path **/
 set_include_path(get_include_path() . PATH_SEPARATOR . 'Classes/');
 
@@ -98,8 +36,6 @@ switch(basename($_FILES["fileToUpload"]["name"]))
 		$i=14;
 		break;
 	default:
-		echo 'Wrong File';
-		exit();
 		$i=200;
 		break;
 }

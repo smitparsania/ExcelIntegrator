@@ -57,14 +57,6 @@ HERE;
 		
 		</body>
 HERE;
-			/*$handle = @fopen("text.txt", "r");
-			$conn = mysql_connect("localhost"); 
-			mysql_select_db("user_login",$conn);
-			$sql = "SELECT filename FROM `users` WHERE user_name = '$user'";
-			$sql2 = "SELECT group_name FROM `users` WHERE user_name = '$user'";
-			$FILE = mysql_query($sql,$conn) or die(mysql_error());
-			$GRP = mysql_query($sql2,$conn) or die(mysql_error());
-			*/
 		}	
 ?>
 <style>

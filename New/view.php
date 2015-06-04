@@ -1,9 +1,20 @@
 <?php
+	
 	$html = '<html>';
-	$handle = file("text.txt");
+	/*session_start();
+	$user = 'user1';
+	echo $user;	
+	$handle = file("text.txt");*/
 	$conn = mysql_connect("localhost"); 
 	mysql_select_db("user_login",$conn);
-	$table = 'users';	
+	$table = 'users';
+	/*$sql = "SELECT filename FROM $table WHERE user_name = '$user'";
+	$file_query = mysql_query($sql,$conn) or die(mysql_error());
+	$file = mysql_fetch_assoc($file_query);
+	$FILE = $file['filename'];
+	echo $FILE;*/
+	$directory = "/uploads/Input/";
+	$filename = '';
 	$result = mysql_query("SELECT * FROM $table ORDER BY group_id");
 	if (!$result) {
 		die("Query to show fields from table failed");
@@ -32,13 +43,18 @@
 	
 	while($row = mysql_fetch_assoc($result))
 	{
+		$filename = $directory.$row['group_name'].'/'.trim($row['filename']);
+		clearstatcache();
 		if($row["group_id"]==$last_id)
 		{
 			
 			$div_name_html .= '<br>'.$row["division_name"];
 			$user_name_html .= '<br>'.$row["user_name"];
 			$pass_html .= '<br>'.$row["password"];
-			$file_html .= '<br>'.$row["filename"];
+			if(stream_resolve_include_path($filename))
+				{$file_html .= '<br><a href="">'.$row["filename"].'</a>';}
+			else
+				{$file_html .= '<br>'.$row["filename"];}
 
 		}
 		else
@@ -62,7 +78,10 @@
 			$div_name_html = '<td>'.$row["division_name"];
 			$user_name_html = '<td>'.$row["user_name"];
 			$pass_html = '<td>'.$row["password"];
-			$file_html = '<td>'.$row["filename"];	
+			if(stream_resolve_include_path($filename))
+				{$file_html = '<td><a href="">'.$row["filename"].'</a>';}
+			else
+				{$file_html = '<td>'.$row["filename"];}			
 		}
 		
 		$last_id=$row["group_id"];
