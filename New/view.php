@@ -43,6 +43,7 @@
 	
 	while($row = mysql_fetch_assoc($result))
 	{
+		$file = trim($row['filename']);
 		$filename = $directory.$row['group_name'].'/'.trim($row['filename']);
 		clearstatcache();
 		if($row["group_id"]==$last_id)
@@ -52,7 +53,7 @@
 			$user_name_html .= '<br>'.$row["user_name"];
 			$pass_html .= '<br>'.$row["password"];
 			if(stream_resolve_include_path($filename))
-				{$file_html .= '<br><a href="">'.$row["filename"].'</a>';}
+				{$file_html .= '<br><a href="fileview.php?link='.$file.'">'.trim($row['filename']).'</a>';}
 			else
 				{$file_html .= '<br>'.$row["filename"];}
 
@@ -79,7 +80,7 @@
 			$user_name_html = '<td>'.$row["user_name"];
 			$pass_html = '<td>'.$row["password"];
 			if(stream_resolve_include_path($filename))
-				{$file_html = '<td><a href="">'.$row["filename"].'</a>';}
+				{$file_html = '<td><a href="fileview.php?link='.$file.'">'.trim($row['filename']).'</a>';}
 			else
 				{$file_html = '<td>'.$row["filename"];}			
 		}

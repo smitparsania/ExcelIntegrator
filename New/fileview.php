@@ -4,7 +4,8 @@ set_include_path(get_include_path() . PATH_SEPARATOR . 'Classes/');
 
 /** PHPExcel_IOFactory */
 include 'PHPExcel/IOFactory.php';
-
+$filename = $_GET['link'];
+echo $filename;
 $inputFileName = 'Output/result.xlsx';  // File to read
 //echo 'Loading file ',pathinfo($inputFileName,PATHINFO_BASENAME),' using IOFactory to identify the format<br />';
 try {
@@ -13,7 +14,7 @@ try {
 	die('Error loading file "'.pathinfo($inputFileName,PATHINFO_BASENAME).'": '.$e->getMessage());
 }
 $i=0;
-switch(basename($_FILES["fileToUpload"]["name"]))
+switch($filename)
 {
 	case "file1.xls":
 		echo 'Here Is View Of Your Uploaded File';
