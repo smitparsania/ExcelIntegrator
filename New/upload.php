@@ -5,15 +5,15 @@ $user = $_SESSION['user'];
 echo $user;
 $conn = mysql_connect("localhost"); 
 mysql_select_db("user_login",$conn);
-//$sql = "SELECT filename FROM `users` WHERE user_name = '$user'";
+$sql = "SELECT filename FROM `users` WHERE user_name = '$user'";
 $sql2 = "SELECT group_name FROM `users` WHERE user_name = '$user'";
-//$file_query = mysql_query($sql,$conn) or die(mysql_error());
+$file_query = mysql_query($sql,$conn) or die(mysql_error());
 $grp_query = mysql_query($sql2,$conn) or die(mysql_error());
-//$file = mysql_fetch_assoc($file_query);
+$file = mysql_fetch_assoc($file_query);
 $grp = mysql_fetch_assoc($grp_query);
-//$FILE = $file['filename'];
+$FILE = trim($file['filename']);
 $GRP = $grp['group_name'];
-//echo $FILE;
+echo $FILE;
 echo $GRP;
 
 $target_dir = "uploads/Input/$GRP/";
@@ -21,14 +21,21 @@ if(!file_exists($target_dir))
 	{echo "done";
 	mkdir("uploads/Input/$GRP/");	}
 $target_file = $target_dir.basename($_FILES["fileToUpload"]["name"]);
+if(basename($_FILES["fileToUpload"]["name"])!= $FILE)
+	{
+		echo 'Wrong File';
+		exit();
+	}
 $uploadOk = 1;
 //$FileType = pathinfo($target_file,PATHINFO_EXTENSION);
 if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
         echo "<br>The file ".basename($_FILES["fileToUpload"]["name"]). " has been uploaded.";
     } else {
         echo "Sorry, there was an error uploading your file.";
-    }	
-#exec("C:/xampp/htdocs/smit/call.bat");
+    }
+$call_command = 'start /b "" "C:/xampp/htdocs/New/MergeExcel/MergeExcel/bin/Release/MergeExcel.exe" '.$GRP;
+file_put_contents('call.bat', $call_command);	
+exec("C:/xampp/htdocs/New/call.bat");
 
 ?>
 

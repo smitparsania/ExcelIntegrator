@@ -1,1 +1,1 @@
-start /b "" "C:/Users/Razer/Documents/Visual Studio 2013/Projects/MergeExcel/MergeExcel/bin/Release/MergeExcel.exe"
+start /b "" "C:/xampp/htdocs/New/MergeExcel/MergeExcel/bin/Release/MergeExcel.exe" A

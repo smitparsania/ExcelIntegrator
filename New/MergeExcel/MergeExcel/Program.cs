@@ -13,9 +13,17 @@ namespace MergeExcel1
     {
        static void Main(string[] args)
             {
-                string[] filearray = Directory.GetFiles(@"C:\xampp\htdocs\smit\uploads\Input\", "*.xls");
+                if (args.Length == 0)
+                {
+                    System.Console.WriteLine("Please enter a valid division name");
+                    System.Console.WriteLine("Usage: MergeExcel.exe <division name>");
+                    System.Console.WriteLine("pause");
+                    return;
+                }
 
-                MergeExcel.DoMerge(filearray, @"C:\xampp\htdocs\smit\Output\result.xlsx");
+                string[] filearray = Directory.GetFiles(@"C:\xampp\htdocs\New\uploads\Input\"+args[0], "*.xls");
+
+                MergeExcel.DoMerge(filearray, @"C:\xampp\htdocs\New\Output\result.xlsx");
             }
     }
    
@@ -33,7 +41,7 @@ namespace MergeExcel1
         Excel.Worksheet sheetSource = null;
         string[] _sourceFiles = null;
         string _destFile = string.Empty;
-        string templateFile = @"C:\xampp\htdocs\smit\Output\template.xlsx";
+        string templateFile = @"C:\xampp\htdocs\New\Output\template.xlsx";
         
         public MergeExcel(string[] sourceFiles, string destFile)
         {
@@ -48,7 +56,7 @@ namespace MergeExcel1
             sheetDest.Name = "CURYR";
             OpenBook(templateFile);
             Excel.Range rangeSourceItems = sheetSource.get_Range("A1","B1039");
-            Excel.Range rangeSourceHeadings = sheetSource.get_Range("C1", "H3");
+            Excel.Range rangeSourceHeadings = sheetSource.get_Range("C1", "Q3");
             Excel.Range rangeDestItems = sheetDest.get_Range("A1", Missing.Value);
             Excel.Range rangeDestHeadings = sheetDest.get_Range("C1", Missing.Value);            
             rangeSourceItems.Copy(Missing.Value);
@@ -108,13 +116,25 @@ namespace MergeExcel1
                                     
             switch(fileName)
             {
-                case @"C:\xampp\htdocs\smit\uploads\Input\Kanpur Accts 2013-14.xls":
+                case @"C:\xampp\htdocs\New\uploads\Input\A\file1.xls":
                     Console.WriteLine(fileName);
                     currCol = 3;
                     break;
-                case @"C:\xampp\htdocs\smit\uploads\Input\Korwa Accts 2013-14.xls":
+                case @"C:\xampp\htdocs\New\uploads\Input\A\file3.xls":
                     Console.WriteLine(fileName);
                     currCol = 6;
+                    break;
+                case @"C:\xampp\htdocs\New\uploads\Input\B\file2.xls":
+                    Console.WriteLine(fileName);
+                    currCol = 9;
+                    break;
+                case @"C:\xampp\htdocs\New\uploads\Input\C\file4.xls":
+                    Console.WriteLine(fileName);
+                    currCol = 12;
+                    break;
+                case @"C:\xampp\htdocs\New\uploads\Input\D\file5.xls":
+                    Console.WriteLine(fileName);
+                    currCol = 15;
                     break;
                 default:
                     return;
